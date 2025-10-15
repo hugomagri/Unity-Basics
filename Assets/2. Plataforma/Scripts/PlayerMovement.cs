@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        float movimento = Input.GetAxisRaw("Horizontal");
+
         float move = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
 
@@ -22,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+
+        if (movimento != 0)
+            transform.localScale = new Vector3(Mathf.Sign(movimento) * 0.18f, 0.18f, 0.18f);
     }
 
     void OnCollisionEnter2D(Collision2D col)

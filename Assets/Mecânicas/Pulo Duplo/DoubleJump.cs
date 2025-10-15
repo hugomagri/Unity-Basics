@@ -49,7 +49,7 @@ public class DubleJump : MonoBehaviour
 
         // Espelha o sprite de acordo com a direção
         if (movimento != 0)
-            transform.localScale = new Vector3(Mathf.Sign(movimento), 1f, 1f);
+            transform.localScale = new Vector3(Mathf.Sign(movimento), 0.18f, 0.18f);
     }
 
     void Pular()
