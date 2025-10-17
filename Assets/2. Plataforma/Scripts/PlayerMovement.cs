@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 7f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private Animator Animator;
 
     void Start()
     {
@@ -23,10 +24,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Animator.SetTrigger("Jump");
         }
 
         if (movimento != 0)
             transform.localScale = new Vector3(Mathf.Sign(movimento) * 0.18f, 0.18f, 0.18f);
+
+        if (move != 0)
+        {
+            Animator.SetTrigger("Run");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
