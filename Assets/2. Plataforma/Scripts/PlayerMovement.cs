@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private Animator animator;
+    float horizontalMove = 0f;
 
     void Start()
     {
@@ -31,18 +32,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 // O personagem move-se junto com o cenário (parallax) quando não há input
                 rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y); // Movimento contínuo para trás
+                animator.SetFloat("Run", 0);
             }
             else
             {
                 // Movimento do personagem com as teclas
                 rb.linearVelocity = new Vector2(movimento * speed, rb.linearVelocity.y);
+                animator.SetFloat("Run", Mathf.Abs(movimento));
 
                 // Controla a direção do personagem
                 if (movimento != 0)
                     transform.localScale = new Vector3(Mathf.Sign(movimento) * 0.24f, 0.24f, 0.24f);
 
-                // Aciona a animação de corrida
-                animator.SetTrigger("Run");
             }
         }
         else
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(movimento * speed, rb.linearVelocity.y);
         }
 
-        // Verifica se o jogador está pulando
+       
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
